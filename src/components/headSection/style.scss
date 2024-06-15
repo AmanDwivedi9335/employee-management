@@ -1,0 +1,11 @@
+.headsection{
+    display: flex;
+    justify-content: space-around;
+    margin: 5px;
+    align-items: center;
+    .headtitle{
+        font-size: 25px;
+        font-weight: 100;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+}
