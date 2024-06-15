@@ -2,10 +2,7 @@ import './App.css'
 import HeadSection from './components/headSection/HeadSection';
 import NavbarSection from './components/navbar/NavbarSection';
 import ListEmployee from './pages/ListEmployee';
-import {
-  createBrowserRouter,
-  RouterProvider, Outlet
-} from "react-router-dom";
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import AttendanceLog from './pages/attendanceLog/AttendanceLog';
 import Datepicker from './components/datepicker/Datepicker';
 import { useState } from 'react';
@@ -22,10 +19,10 @@ function App() {
   //   </>
   // )
 
-  const router = createBrowserRouter([
+  const router = createHashRouter([
     {
       path: "/",
-      element: <ListEmployee />, // Use Layout as the main element
+      element: <ListEmployee />,
     },
     {
       path: "/attendance",
