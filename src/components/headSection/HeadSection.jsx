@@ -42,12 +42,12 @@ function HeadSection() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
 
-    // const attendanceRoute = () => {
-    //     navigate('/attendance');
-    //     console.log("open log");
-    // }
+    const attendanceRoute = () => {
+        navigate('/attendance');
+        console.log("open log");
+    }
 
 
     const formOpen = () => {
@@ -99,7 +99,7 @@ function HeadSection() {
             
             {location.pathname === '/' && (<Button style={{ marginRight: '20px' }} onClick={formOpen} variant="outlined">Add Employee</Button>)}
             
-            <Button href='/attendance' variant="outlined">Attendance Log</Button>
+            <Button onClick={attendanceRoute} variant="outlined">Attendance Log</Button>
 
 
             <FormGroup>
