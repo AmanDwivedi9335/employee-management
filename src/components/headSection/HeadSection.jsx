@@ -79,11 +79,6 @@ function HeadSection() {
     };
 
 
-    const handleSubmit = () => {
-        
-    }
-
-
 
   return (
 

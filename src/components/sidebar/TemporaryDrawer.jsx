@@ -8,10 +8,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import OtherHousesIcon from '@mui/icons-material/OtherHouses';
+import PeopleIcon from '@mui/icons-material/People';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 import { styled, keyframes, ThemeProvider } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 
 const bounce = keyframes`
   0%, 20%, 50%, 80%, 100% {
@@ -45,26 +46,21 @@ export default function TemporaryDrawer() {
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+      <Box component="section" sx={{ fontSize: 30}}>
+        Beechems
+      </Box>
       </List>
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-          <ListItem key={text} disablePadding>
-            <ListItemButton>
+        {[{text:'Home', icon: <OtherHousesIcon/>, path:'/'}, 
+        {text: 'Manage Employees', icon: <PeopleIcon/>, path: '/employees'}, 
+        {text: 'Attendance Log', icon: <PeopleIcon/>, path: '/attendance'}].map((item, index) => (
+          <ListItem key={item.text} disablePadding>
+            <ListItemButton component={Link} to={item.path}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {item.icon}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={item.text} />
             </ListItemButton>
           </ListItem>
         ))}

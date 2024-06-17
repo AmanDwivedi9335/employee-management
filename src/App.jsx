@@ -10,6 +10,9 @@ import AttendanceLog from './pages/attendanceLog/AttendanceLog';
 import Datepicker from './components/datepicker/Datepicker';
 import { useState } from 'react';
 import dayjs from 'dayjs';
+import AttReport from './pages/attendanceReport/AttReport';
+import MainDash from './pages/dashboard/MainDash';
+import { EmployeeProvider } from './components/contextprovider/EmployeeContext';
 
 function App() {
   const [date, setDate] = useState(dayjs());
@@ -28,18 +31,28 @@ function App() {
       element: <Layout />, // Use Layout as the main element
       children: [{
         path: "/",
-        element: <ListEmployee/>
+        element: <MainDash/>
+      },
+      {
+        path: "/employees",
+        element: <ListEmployee />,
       },
       {
         path: "/attendance",
         element: <AttendanceLog date={date} child={<Datepicker date={date} setDate={setDate} />} />,
+      },
+      {
+        path: "/attendancereport",
+        element: <AttReport/>
       }]
     },
   ]);
 
   return (
     <>
+    <EmployeeProvider>
       <RouterProvider router={router} />
+    </EmployeeProvider>
     </>
   )
 }
