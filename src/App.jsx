@@ -1,4 +1,4 @@
-import './App.css'
+import './App.css';
 import HeadSection from './components/headSection/HeadSection';
 import NavbarSection from './components/navbar/NavbarSection';
 import ListEmployee from './pages/ListEmployee';
@@ -13,6 +13,8 @@ import dayjs from 'dayjs';
 import AttReport from './pages/attendanceReport/AttReport';
 import MainDash from './pages/dashboard/MainDash';
 import { EmployeeProvider } from './components/contextprovider/EmployeeContext';
+import { SelectedEmployeeProvider } from './components/contextprovider/SelectedEmployeeContext';
+import UpdateEmployee from './components/Employee/UpdateEmployee';
 
 function App() {
   const [date, setDate] = useState(dayjs());
@@ -23,7 +25,7 @@ function App() {
       <HeadSection />
       <Outlet />
     </>
-  )
+  );
 
   const router = createBrowserRouter([
     {
@@ -34,15 +36,19 @@ function App() {
         element: <MainDash/>
       },
       {
-        path: "/employees",
+        path: "employees",
         element: <ListEmployee />,
       },
       {
-        path: "/attendance",
+        path: "update/:id",
+        element: <UpdateEmployee/>
+      },
+      {
+        path: "attendance",
         element: <AttendanceLog date={date} child={<Datepicker date={date} setDate={setDate} />} />,
       },
       {
-        path: "/attendancereport",
+        path: "attendancereport",
         element: <AttReport/>
       }]
     },
@@ -50,11 +56,13 @@ function App() {
 
   return (
     <>
-    <EmployeeProvider>
-      <RouterProvider router={router} />
-    </EmployeeProvider>
+      <EmployeeProvider>
+        <SelectedEmployeeProvider>
+          <RouterProvider router={router} />
+        </SelectedEmployeeProvider>
+      </EmployeeProvider>
     </>
-  )
+  );
 }
 
 export default App;

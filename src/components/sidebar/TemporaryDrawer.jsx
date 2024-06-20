@@ -1,4 +1,5 @@
 import * as React from 'react';
+import './style.scss'
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import Button from '@mui/material/Button';
@@ -12,7 +13,9 @@ import OtherHousesIcon from '@mui/icons-material/OtherHouses';
 import PeopleIcon from '@mui/icons-material/People';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 import { styled, keyframes, ThemeProvider } from '@mui/material/styles';
+import SendIcon from '@mui/icons-material/Send';
 import { Link } from 'react-router-dom';
+import { purple } from '@mui/material/colors';
 
 const bounce = keyframes`
   0%, 20%, 50%, 80%, 100% {
@@ -46,8 +49,8 @@ export default function TemporaryDrawer() {
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
       <List>
-      <Box component="section" sx={{ fontSize: 30}}>
-        Beechems
+      <Box component="section" sx={{ fontSize: 30, display: 'flex', alignContent: 'center', justifyContent: 'center'}}>
+        <img src='https://beechems.com/wp-content/themes/beechems/images/beechem-logo.svg'/>
       </Box>
       </List>
       <Divider />
@@ -65,6 +68,14 @@ export default function TemporaryDrawer() {
           </ListItem>
         ))}
       </List>
+
+      <Divider />
+      <div className="center-div">
+        <Button endIcon={<SendIcon />} variant='outlined' color='error' sx={{}}>
+            Logout
+        </Button>
+      </div>
+        
     </Box>
   );
 

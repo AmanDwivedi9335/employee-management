@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {Stack, Button, Modal, Box, Typography, TextField, Grid, Select, MenuItem, InputLabel, FormControl} from '@mui/material'
 import './style.scss';
 import { FormGroup } from '@mui/material';
@@ -18,13 +18,13 @@ const style = {
     height: '60%',
     width: '60%',
     bgcolor: 'background.paper',
-    border: '2px solid #000',
+    borderRadius: 10,
     boxShadow: 24,
     p: 4,
   };
 
 function HeadSection() {
-    const [headtitle, setHeadtitle ] = useState("Employee List");
+    const [headtitle, setHeadtitle ] = useState(null);
     const [open, setOpen] = useState(false);
     const [unit, setUnit] = useState('');
     const [shift, setShift] = useState('');
@@ -43,12 +43,11 @@ function HeadSection() {
     const handleClose = () => setOpen(false);
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     const attendanceRoute = () => {
         navigate('/attendance');
-        console.log("open log");
     }
-
 
     const formOpen = () => {
         setOpen(true);
@@ -78,6 +77,28 @@ function HeadSection() {
         }
     };
 
+    useEffect(()=> {
+        switch(location.pathname){
+            case '/':
+                setHeadtitle('Dashboard');
+                break;
+
+            case '/attendance':
+                setHeadtitle('Attendance Logs');
+                break;
+
+            case '/employees' :
+                setHeadtitle('Manage Employees');
+                break;
+
+            default:
+                setHeadtitle('Dashboard');
+
+        }
+    }, [location.pathname]);
+
+
+
 
 
   return (
@@ -90,11 +111,10 @@ function HeadSection() {
         </div>
 
         <div className="btn">
-            {console.log(location.pathname)}
             
-            {location.pathname === '/' && (<Button style={{ marginRight: '20px' }} onClick={formOpen} variant="outlined">Add Employee</Button>)}
+            {location.pathname === '/' && (<Button style={{ marginRight: '20px', borderRadius: 10 }} onClick={formOpen} variant="outlined">Add Employee</Button>)}
             
-            <Button onClick={attendanceRoute} variant="outlined">Attendance Log</Button>
+            <Button style={{ marginRight: '20px', borderRadius: 10 }} onClick={attendanceRoute} variant="outlined">Attendance Log</Button>
 
 
             <FormGroup>

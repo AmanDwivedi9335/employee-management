@@ -1,9 +1,28 @@
-import React from 'react'
+import React, {useEffect} from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelectedEmployee } from '../contextprovider/SelectedEmployeeContext';
+import { getEmployeeById } from '../contextprovider/EmployeeContext';
+import MyForm from './MyForm';
 
-function UpdateEmployee() {
+const UpdateEmployee = () => {
+  const { id } = useParams();
+  const { setSelectedEmployee } = useSelectedEmployee();
+
+  useEffect(()=>{
+    const fetchEmployee = async () => {
+      const employeeData = await getEmployeeById(id);
+      setSelectedEmployee(employeeData);
+    };
+
+    fetchEmployee();
+
+  }, [id, setSelectedEmployee]);
+
   return (
-    <div>UpdateEmployee</div>
-  )
+    <div>
+      <MyForm/>
+    </div>
+  );
 }
 
-export default UpdateEmployee
+export default UpdateEmployee;

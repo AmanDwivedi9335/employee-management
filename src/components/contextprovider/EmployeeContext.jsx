@@ -1,6 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../config/firebaseConfig';
-import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import { collection, onSnapshot, query, orderBy } from 'firebase/firestore';
+
 
 const EmployeeContext = createContext();
 
@@ -44,4 +46,21 @@ const useEmployeeContext = () => {
   return useContext(EmployeeContext);
 };
 
-export { EmployeeProvider, useEmployeeContext };
+const getEmployeeById = async (id) => {
+  try {
+    const docRef = doc(db, 'employee', id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return { id: docSnap.id, ...docSnap.data() };
+    } else {
+      console.log("No such document");
+      return null;
+    }
+  } catch (error) {
+    console.error('Error getting document:', error);
+    return null;
+  }
+};
+
+export { EmployeeProvider, useEmployeeContext, getEmployeeById };
